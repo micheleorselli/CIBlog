@@ -1,0 +1,33 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+
+<project name="CIBlog" basedir="." default="build">
+    <property file="build.properties" />
+
+    <target name="clean" description="effettua la build del progetto">
+        <echo msg="ecco: ${test.filter}" />
+    </target>
+
+    <target name="prepare" description="effettua la build del progetto">
+        <echo msg="ecco: ${test.filter}" />
+    </target>
+
+    <target name="update-db" description="effettua la build del progetto">
+        <echo msg="ecco: ${test.filter}" />
+    </target>
+
+    <target name="runtest" description="effettua la build del progetto">
+        <echo msg="ecco: ${test.filter}" />
+    </target>
+
+    <target name="metrics" description="effettua la build del progetto">
+        <echo msg="ecco: ${test.filter}" />
+    </target>
+
+    <target name="deploy" description="effettua la build del progetto">
+        <echo msg="ecco: ${test.filter}" />
+    </target>
+
+    <target name="build" description="effettua la build del progetto">
+        <echo msg="ecco: ${test.filter}" />
+    </target>
+</project>
