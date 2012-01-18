@@ -2,30 +2,45 @@
 
 class Post
 {
-  private $titolo;
-  private $descrizione;
-  private $data_pubblicazione
+  private $id;
+  private $title;
+  private $intro;
+  private $body;
+  private $image;
+  private $published_at;
 
   public function fromArray(array $data)
   {
-    $this->titolo             = $data['titolo'];
-    $this->descrizione        = $data['descrizione'];
-    $this->data_pubblicazione = $data['data_pubblicazione'];
+    $this->title              = $data['title'];
+    $this->intro              = $data['intro'];
+    $this->body               = $data['body'];
+    $this->image              = $data['image'];
+    $this->published_at       = $data['published_at'];
   }
 
-  public function getTitolo()
+  public function getTitle()
   {
-    return $this->titolo;
+    return $this->title;
   }
 
-  public function getDescrizione()
+  public function getIntro()
   {
-    return $this->descrizione;
+    return $this->intro;
   }
 
-  public function getDataPubblicazione()
+  public function getBody()
   {
-    return $this->data_pubblicazione;
+    return $this->body;
+  }
+
+  public function getImage()
+  {
+    return $this->image;
+  }
+
+  public function getPublishedAt()
+  {
+    return $this->published_at;
   }
 }
 ?>

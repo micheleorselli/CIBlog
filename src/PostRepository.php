@@ -14,8 +14,23 @@ class PostRepository
     $res = $conn->exec($q);
   }
 
+  public function findRecentPost($limit = 5)
+  {
+  	
+  }
   
-  
+  public function fromArray(array $data)
+  {
+    $post = new Post();
+    $post->title              = $data['title'];
+    $post->intro              = $data['intro'];
+    $post->body               = $data['body'];
+    $post->image              = $data['image'];
+    $post->published_at       = $data['published_at'];
+
+    return $post;
+
+  }
 
  
 }
