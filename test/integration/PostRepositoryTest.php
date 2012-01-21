@@ -6,21 +6,26 @@ require_once __DIR__.'/../../src/PostRepository.php';
  * @group integration
  * @group post
 */
-class PostRepositoryTest extends PHPUnit_Framework_TestCase
+class PostRepositoryTest extends PHPUnit_Extensions_Database_TestCase
 {
-	public function testNewPostFromArray()
-	{	
-		$data = array(
-			'title'			=> 'titolo del post',
-			'intro'			=> 'intro del post',
-			'body'			=> 'il body',
-			'image'			=> 'nice.jpg',
-			'published_at'	=> new DateTime('now')
-		);
+    public function getConnection()
+    {
+        $pdo = new PDO('mysql:host=localhost;dbname=testdb', 'username', 'password');
+        return $this->createDefaultDBConnection($pdo);
+    }
 
-		$post = new Post();
-		$post->fromArray($data);
+    
+    public function getDataSet()
+    {
+        return $this->createFlatXMLDataSet(dirname(__FILE__).'/fixtures/post.xml');
+    }
 
-		$this->assertEquals('titolo del post', $post->getTitle());
-	}
+    public function testRetrieveEventi()
+  	{
+	    $post = new PostRepository($this->pdo)->
+	    			findLastPost();
+	   
+	    $this->assertEquals('Primo post', $post->getTitle());
 }
+
+

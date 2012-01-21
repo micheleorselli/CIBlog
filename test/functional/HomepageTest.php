@@ -6,21 +6,27 @@ require_once __DIR__.'/../../src/Post.php';
  * @group functional
  * @group post
 */
-class HomepageTest extends PHPUnit_Framework_TestCase
+class HomepageTest extends PHPUnit_Extensions_SeleniumTestCase
 {
-	public function testNewPostFromArray()
-	{	
-		$data = array(
-			'title'			=> 'titolo del post',
-			'intro'			=> 'intro del post',
-			'body'			=> 'il body',
-			'image'			=> 'nice.jpg',
-			'published_at'	=> new DateTime('now')
-		);
 
-		$post = new Post();
-		$post->fromArray($data);
+  protected function setUp()
+  {
+    $this->setBrowser('*firefox');
+    $this->setBrowserUrl('http://localhost/');
+  }
 
-		$this->assertEquals('titolo del post', $post->getTitle());
-	}
+  public function testHomepageContainsLatestFivePost()
+  {
+    $this->open("/index.php");
+    
+   	$this->waitForTextPresent('Post');
+   	$this->assertTitle('CIBlog');
+    $this->assertEquals("Primo Post", $this->getText("//div[@id='main']/div[1]/h2"));
+    $this->assertEquals("Primo Post", $this->getText("//div[@id='main']/div[2]/h2"));
+    $this->assertEquals("Primo Post", $this->getText("//div[@id='main']/div[3]/h2"));
+    $this->assertEquals("Primo Post", $this->getText("//div[@id='main']/div[4]/h2"));
+    $this->assertEquals("Primo Post", $this->getText("//div[@id='main']/div[5]/h2"));
+     
+  }
+
 }

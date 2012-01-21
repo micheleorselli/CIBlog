@@ -4,7 +4,9 @@ CREATE DATABASE `CIBlog`;
 
 GRANT ALL PRIVILEGES ON  `CIBlog` . * TO  'user'@'localhost' IDENTIFIED BY 'password' WITH GRANT OPTION;
 
-CREATE TABLE  `CIBlog`.`Post` (
+USE `CIBlog`; 
+
+CREATE TABLE  `Post` (
 `id` INT NOT NULL ,
 `title` VARCHAR( 50 ) NOT NULL ,
 `intro` TEXT NULL ,
