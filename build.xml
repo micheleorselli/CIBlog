@@ -35,11 +35,21 @@
               dir="${project.basedir}"/>
     </target>
 
-    <target name="test">
-        <exec command="phpunit --log-junit ${project.basedir}/build/log/junit.xml ${project.basedir}" 
-              dir="${project.basedir}"/>
+    <target name="test-local">
+        <exec executable="phpunit">
+              <arg value="--group=unit,integration" />
+              <arg value="${project.basedir}/test" />
+        </exec>      
     </target>
 
+    <target name="test-all">
+        <exec executable="phpunit">
+              <arg value="--log-junit=${project.basedir}/build/log/junit.xml" />
+              
+              <arg value="${project.basedir}/test/unit" />
+        </exec>   
+    </target>
+        
     <target name="metrics">
         <phpcpd>
            <fileset dir="${project.basedir}/src" id="filestocpd">
@@ -70,19 +80,8 @@
         <formatter type="checkstyle" outfile="${project.basedir}/build/log/checkstyle.xml"/>
         </phpcodesniffer>
 
-        <exec executable="phpcb">
-            <arg value="--log" />
-            <arg path="${project.basedir}/build/log" />
-            <arg value="--source" />
-            <arg path="${project.basedir}/src" />
-            <arg value="--output" />
-            <arg path="${project.basedir}/build/code-browser" />
-        </exec>
     </target> 
-    
-    <target name="deploy">
         
-    </target>      
 
      <target name="private-build">
         <phingcall target="clean" />
@@ -91,27 +90,13 @@
         <phingcall target="test" />
     </target>
 
-    <target name="test-local">
-        <exec executable="phpunit">
-              <arg value="--group=unit,integration" />
-              <arg value="${project.basedir}/test" />
-        </exec>      
-    </target>
-
-    <target name="test-all">
-        <exec executable="phpunit">
-              <arg value="--log-junit=${project.basedir}/build/log/junit.xml" />
-              <arg value="${project.basedir}/test/unit" />
-        </exec>   
-    </target>
-
     <target name="build">
         <phingcall target="clean" />
         <phingcall target="prepare" />
         <phingcall target="integrate-database" />
         <phingcall target="test-all" />
-        <!-- phingcall target="metrics" />
-        <phingcall target="deploy" / -->
+        <phingcall target="metrics" />
+
     </target>
 
 </project>
