@@ -3,36 +3,24 @@ require_once 'Post.php';
 
 class PostRepository
 {
+  private $pdo;
 
-  public function save(Post $post)
-  { 
-    $q = sprintf("INSERT INTO evento (titolo, descrizione, data_pubblicazione) VALUES ('%s', '%s', '%s')", 
-                $this->getTitolo(),
-                $this->getDescrizione(),
-                $this->getDataPubblicazione());
-                
-    $res = $conn->exec($q);
+  public function __construct(PDO $pdo)
+  {
+    $this->pdo = $pdo;
   }
 
-  public function findRecentPost($limit = 5)
+  public function findLastPost()
   {
-  	
-  }
-  
-  public function fromArray(array $data)
-  {
+    $q = sprintf("SELECT * FROM Post ORDER BY published_at DESC LIMIT 1");
+
+    $result = $this->pdo
+                   ->query($q)
+                   ->fetch(PDO::FETCH_ASSOC);
+
     $post = new Post();
-    $post->title              = $data['title'];
-    $post->intro              = $data['intro'];
-    $post->body               = $data['body'];
-    $post->image              = $data['image'];
-    $post->published_at       = $data['published_at'];
-
+    $post->fromArray($result);
+    
     return $post;
-
   }
-
- 
 }
-
-?>

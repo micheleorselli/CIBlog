@@ -36,17 +36,15 @@
     </target>
 
     <target name="test-local">
-        <exec executable="phpunit">
+        <exec executable="phpunit" passthru="true">
               <arg value="--group=unit,integration" />
               <arg value="${project.basedir}/test" />
         </exec>      
     </target>
 
     <target name="test-all">
-        <exec executable="phpunit">
-              <arg value="--log-junit=${project.basedir}/build/log/junit.xml" />
-              
-              <arg value="${project.basedir}/test/unit" />
+        <exec executable="phpunit" passthru="true">
+              <arg value="${project.basedir}/test" />
         </exec>   
     </target>
         
@@ -82,8 +80,18 @@
 
     </target> 
         
+    <target name="start-selenium-server">
+        <exec executable="java" passthru="true" dir="${project.basedir}/test/lib/">
+            <arg value=" -jar selenium-server.jar"/>
+        </exec>
+        <php expression="sleep(5);" />
+    </target> 
 
-     <target name="private-build">
+    <target name="stop-selenium-server">
+        <http-request url="http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer" />
+    </target>
+        
+    <target name="private-build">
         <phingcall target="clean" />
         <phingcall target="prepare" />
         <phingcall target="integrate-database" />
@@ -96,7 +104,6 @@
         <phingcall target="integrate-database" />
         <phingcall target="test-all" />
         <phingcall target="metrics" />
-
     </target>
 
 </project>

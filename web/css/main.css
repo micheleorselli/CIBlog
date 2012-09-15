@@ -1,37 +1,12 @@
-/* 
-    Document   : main
-    Created on : 12-mag-2010, 21.45.26
-    Author     : michele
-    Description:
-        Purpose of the stylesheet follows.
-*/
-
-/* 
-   TODO customize this sample style
-   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
-*/
-
-.header
-{ 
-  background-image: url('../images/header.png');
-  background-repeat: no-repeat;
-  height: 80px;
-}
-
-.footer
-{
-  background-image: url('../images/footer.png');
-  background-repeat: no-repeat;
-  height: 35px;
-}
 
 .header h2
 {
   padding-top: 8px;
-  color: white;
 }
 
-.body
+.container
 {
   border-right: 1px solid #DDDDDD;
+  margin-left: 20%;
+  margin-right: 20%;
 }
